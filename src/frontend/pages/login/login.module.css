@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+.container {
+  min-height: 100vh;
+  width: 100%;  /* Asegura que ocupe todo el ancho */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0a0f1e;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 20px;  /* Espacio en los bordes en pantallas pequeñas */
+  box-sizing: border-box;  /* Incluye el padding en el ancho total */
+}
+
+.box {
+  background: #121928;
+  padding: clamp(30px, 5vw, 50px);  /* Padding responsivo */
+  border-radius: clamp(20px, 3vw, 30px);  /* Border radius responsivo */
+  width: min(95%, 440px);  /* 95% en móviles, máximo 440px */
+  max-width: 440px;  /* Límite máximo */
+  border: 1px solid #1e293b;
+  margin: 0 auto;  /* Centrado horizontal */
+  transition: all 0.3s ease;  /* Transición suave al redimensionar */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h2 {
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.glowText {
+  color: white;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.formGroup {
+  margin-bottom: 25px;
+}
+
+.formGroup label {
+  display: block;
+  color: white;
+  margin-bottom: 10px;
+  font-size: 13px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.formGroup label span {
+  margin-right: 8px;
+}
+
+.customSelect,
+.credencialesInput {
+  width: 100%;
+  padding: 16px 20px;
+  background: #1e293b;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  color: white;
+}
+
+.customSelect {
+  cursor: pointer;
+}
+
+.customSelect option {
+  background: #1e293b;
+  color: white;
+}
+
+.credencialesInput::placeholder {
+  color: #94a3b8;
+}
+
+.inputGlow {
+  margin-top: 8px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.btn {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+}
+
+.btnPrimary {
+  background: #2563eb;
+}
+
+.btnPrimary:hover {
+  background: #1d4ed8;
+}
+
+.btnSecondary {
+  background: #4b5563;
+}
+
+.btnSecondary:hover {
+  background: #374151;
+}
+
+.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.bankIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: #2563eb;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bankIcon::before {
+  content: '🏦';
+  font-size: 40px;
+}
