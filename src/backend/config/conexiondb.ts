@@ -4,7 +4,7 @@ const config = {
   user: process.env.DB_USER || "DESKTOP-7FVF0T5\\ALEXIS",
   password: process.env.DB_PASSWORD || "tu_password",
   server: process.env.DB_HOST || "DESKTOP-7FVF0T5",
-  database: process.env.DB_NAME || "prueba",
+  database: process.env.DB_NAME || "pruebaDB",
   port: 1433,
   options: {
     encrypt: false, // Cambiar a false para local
