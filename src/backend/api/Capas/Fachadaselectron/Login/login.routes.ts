@@ -1,8 +1,13 @@
 import { Router } from "express";
-import { AuthController} from "../auth/Login.controller"
+import { AuthController} from "./Login.controller"
 import { AuthService } from "../../Negocio/LoginBL"
 import { AuthRepository } from "../../accesodatos/loginDAL"
 import { SqlServerConnection } from "../../accesodatos/SqlServerConnection"
+
+/*
+cambiar el nombre a fachada la carpeta routes
+*/
+
 
 const router = Router();
 
@@ -15,7 +20,7 @@ const controller = new AuthController(service);
 /**
  * Paso 1: validar equipo → cargar empresas
  */
-router.post("/validar-equipo", (req, res) =>
+router.post("/obtenerNombreDeEquipo", (req, res) =>
   controller.validarEquipo(req, res)
 );
 

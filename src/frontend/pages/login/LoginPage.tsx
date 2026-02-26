@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { AuthService } from "../../Negocio/auth/login.usecase";
+import { AuthService } from "../../services/login.usecase";
 import { useCredentials } from "./useCredentials";
 import { Empresa } from "../../../shared/entidades/Empresas";
 import { Sucursal } from "../../../shared/entidades/Sucursales";
 import { LoginIdentity } from "../../../shared/entidades/Login";
+import { FachadaServicios } from "../../services/fachadaservicios"
+
+import os from 'os' 
 
 const authService = new AuthService();
 
@@ -22,7 +25,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
   // 🚀 Cargar empresas al montar
   useEffect(() => {
-  const nombreEquipo = "DESKTOP-7FVF0T5"; 
+  const nombreEquipo = FachadaServicios.obtenerNombreDeEquipo(); 
+  //const nombreEquipo = "DESKTOP-7FVF0T5"
   console.log("Nombre de equipo para validar:", nombreEquipo);
 
   authService

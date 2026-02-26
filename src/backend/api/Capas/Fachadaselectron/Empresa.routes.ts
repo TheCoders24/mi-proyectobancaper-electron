@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { empresasUseCase }  from '../../Capas/Negocio/EmpresaBL';
+import { empresasUseCase }  from '../Negocio/EmpresaBL';
 
 const router = Router();
 
