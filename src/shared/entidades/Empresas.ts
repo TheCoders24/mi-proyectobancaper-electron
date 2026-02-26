@@ -1,13 +1,8 @@
 export interface Empresa {
-  id: number;
+  id_: string;
   nombre: string;
 }
 
-export const empresas: Empresa[] = [
-  { id: 1, nombre: "🏦 BanCaper Culiacan" },
-  { id: 2, nombre: "🏦 BanCper Mazatlán" },
-  { id: 3, nombre: "🏦 BanCper Los Mochis" },
-];
 /*
 generar un sps en sqlserver el cual me genere de manera automatica la entidad correspondiente de cada tabla
 es decir ejecutar algo asi 

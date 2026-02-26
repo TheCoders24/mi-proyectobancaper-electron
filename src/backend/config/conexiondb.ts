@@ -1,19 +1,19 @@
 import sql from "mssql";
 
-const config = {
-  user: process.env.DB_USER || "DESKTOP-7FVF0T5\\ALEXIS",
-  password: process.env.DB_PASSWORD || "tu_password",
+const config: sql.config = {
   server: process.env.DB_HOST || "DESKTOP-7FVF0T5",
   database: process.env.DB_NAME || "pruebaDB",
+  user: process.env.DB_USER || "sa",
+  password: process.env.DB_PASSWORD || "12345",
   port: 1433,
   options: {
-    encrypt: false, // Cambiar a false para local
+    encrypt: false,
     trustServerCertificate: true,
-    trustedConnection: true, // Importante para Windows Auth
     enableArithAbort: true,
   },
 };
 
-// Exportamos un pool de conexión reutilizable
 export const pool = new sql.ConnectionPool(config);
-export const poolConnect = pool.connect(); // promesa de conexión
+export const poolConnect = pool.connect();
+
+export { sql };

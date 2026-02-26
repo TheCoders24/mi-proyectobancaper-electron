@@ -1,54 +1,105 @@
-import React, { useState } from "react";
-import { LoginUseCase } from "../../Negocio/auth/login.usecase";
+import React, { useState, useEffect } from "react";
+import { AuthService } from "../../Negocio/auth/login.usecase";
 import { useCredentials } from "./useCredentials";
-import { empresas } from "../../../shared/entidades/Empresas";
+import { Empresa } from "../../../shared/entidades/Empresas";
+import { Sucursal } from "../../../shared/entidades/Sucursales";
+import { LoginIdentity } from "../../../shared/entidades/Login";
 
+const authService = new AuthService();
 
-// 1️⃣ Props tipadas
 interface LoginPageProps {
-  onLoginSuccess: (result: any) => void; // puedes reemplazar 'any' por el tipo real de tu login
+  onLoginSuccess: (result: LoginIdentity) => void;
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
-  // 2️⃣ Estados
+  const [empresas, setEmpresas] = useState<Empresa[]>([]);
+  const [sucursales, setSucursales] = useState<Sucursal[]>([]);
   const [empresaId, setEmpresaId] = useState<string>("");
+  const [sucursalId, setSucursalId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  // 3️⃣ Hook personalizado para credenciales
   const { usuario, password, inputDisplay, handleKeyDown } = useCredentials();
 
-  // 4️⃣ Función de login
+  // 🚀 Cargar empresas al montar
+  useEffect(() => {
+  const nombreEquipo = "DESKTOP-7FVF0T5"; 
+  console.log("Nombre de equipo para validar:", nombreEquipo);
+
+  authService
+    .iniciarLogin(nombreEquipo)
+    .then((data) => {
+      console.log("✅ Empresas crudas desde repo:", data);
+
+      const empre: Empresa[] = data.map((e: any) => ({
+        id_: e.Id_Empresa,         // mapeo correcto
+        nombre: e.Nombre_Comercial, // mapeo correcto
+      }));
+
+      console.log("✅ Empresas mapeadas:", empre);
+      setEmpresas(empre);
+    })
+    .catch((err) => alert("Error al validar equipo: " + err.message));
+  }, []);
+
+  // 🚀 Cargar sucursales al seleccionar empresa
+  useEffect(() => {
+    if (!empresaId) return;
+
+    console.log("📡 Empresa seleccionada:", empresaId);
+
+    authService
+      .seleccionarEmpresa(empresaId)
+      .then((data) => {
+        console.log("✅ Sucursales crudas:", data);
+
+        const mappedSucursales = data.map((s: any) => ({
+          id: s.id_sucursal || s.Id_sucursal || s.ID,
+          nombre: s.nombre || s.Nombre,
+        }));
+        console.log("✅ Sucursales mapeadas:", mappedSucursales);
+
+        setSucursales(mappedSucursales);
+      })
+      .catch((err) => {
+        console.error("❌ Error al cargar sucursales:", err.message);
+        alert("Error al cargar sucursales: " + err.message);
+      });
+  }, [empresaId]);
+
+  // Login final
   const handleLogin = async () => {
     try {
+      if (!empresaId || !sucursalId) throw new Error("Debe seleccionar empresa y sucursal");
+
       setLoading(true);
 
-      const result = await LoginUseCase({
-        empresaId,
+      const result = await authService.autenticarUsuario({
+        nombreEquipo: "DESKTOP-7FVF0T5",
+        idEmpresa: empresaId,
+        idSucursal: sucursalId,
         usuario,
-        password
+        password,
       });
+
+      console.log("✅ Login exitoso:", result);
 
       onLoginSuccess(result);
     } catch (err: any) {
+      console.error("❌ Error login:", err.message);
       alert(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // 5️⃣ Función para cerrar la app
-  const handleSalir = () => {
-    window.close();
-  };
+  const handleSalir = () => window.close();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 relative overflow-hidden">
-      {/* Estrellas animadas */}
       <div className="absolute inset-0">
         <div className="stars"></div>
       </div>
 
-      {/* Card de login */}
       <div className="bg-white/95 backdrop-blur-lg rounded-2xl p-8 w-full max-w-md shadow-2xl transform transition-all hover:scale-105">
         {/* Header */}
         <div className="text-center mb-8">
@@ -61,20 +112,40 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           </p>
         </div>
 
-        {/* Selector de sucursal */}
+        {/* Selector de empresa */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            <span className="mr-2">🏢</span> Selecciona la Sucursal
+            <span className="mr-2">🏢</span> Selecciona la Empresa
           </label>
           <select
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             value={empresaId}
             onChange={(e) => setEmpresaId(e.target.value)}
           >
-            <option value="">Elige una opción</option>
+            <option value="">Elige una empresa</option>
             {empresas.map((emp) => (
-              <option key={emp.id} value={emp.id}>
+              <option key={emp.id_} value={emp.id_}>
                 {emp.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Selector de sucursal */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            <span className="mr-2">🏬</span> Selecciona la Sucursal
+          </label>
+          <select
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            value={sucursalId}
+            onChange={(e) => setSucursalId(e.target.value)}
+            disabled={!sucursales.length}
+          >
+            <option value="">Elige una sucursal</option>
+            {sucursales.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.nombre}
               </option>
             ))}
           </select>
@@ -108,17 +179,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             onClick={handleLogin}
             disabled={loading}
           >
-            {loading ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Procesando...
-              </span>
-            ) : "Ingresar"}
+            {loading ? "Procesando..." : "Ingresar"}
           </button>
-          
+
           <button
             className="flex-1 bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition-all transform hover:scale-105"
             onClick={handleSalir}
@@ -129,7 +192,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       </div>
     </div>
   );
-  
 };
 
 export default LoginPage;

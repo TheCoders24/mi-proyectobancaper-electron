@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import { networkInterfaces } from 'os';
+import loginRoutes from '../api/Capas/routes/auth/login.routes';
 
 let mainWindow: BrowserWindow | null = null;
 let apiServer: any = null;
@@ -83,6 +84,9 @@ async function startApiServer() {
       data: req.body
     });
   });
+
+  api.use('/api/auth', loginRoutes)
+
 
   // Aquí van tus rutas reales
   // api.use('/api/empresas', EmpresasRouter);
