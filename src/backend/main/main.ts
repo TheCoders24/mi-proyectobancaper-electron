@@ -4,6 +4,8 @@ import path from 'path';
 import cors from 'cors';
 import { networkInterfaces } from 'os';
 import loginRoutes from '../api/Capas/Fachadaselectron/Login/login.routes';
+import { ipcMain } from "electron";
+import os from "os";
 
 let mainWindow: BrowserWindow | null = null;
 let apiServer: any = null;
@@ -20,6 +22,8 @@ function getLocalIP() {
   }
   return 'localhost';
 }
+
+
 
 async function startApiServer() {
   const api = express();
@@ -132,6 +136,10 @@ function createWindow() {
 
   // Cargar tu frontend
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
+
+  ipcMain.handle("obtenerNombreDeEquipo", ()=>{
+    return os.hostname();
+  })
 
   // Abrir DevTools
   mainWindow.webContents.openDevTools();

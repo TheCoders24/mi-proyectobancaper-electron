@@ -20,7 +20,7 @@ const controller = new AuthController(service);
 /**
  * Paso 1: validar equipo → cargar empresas
  */
-router.post("/obtenerNombreDeEquipo", (req, res) =>
+router.post("/validar-equipo", (req, res) =>
   controller.validarEquipo(req, res)
 );
 

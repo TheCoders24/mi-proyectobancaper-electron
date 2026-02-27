@@ -105,7 +105,7 @@ export class AuthService {
 }
 
 /* ======================================================
-   USE CASE SIMPLE (PARA UI / REACT / VUE)
+   USE CASE SIMPLE (PARA UI )
 ====================================================== */
 export const LoginUseCase = async (data: {
   nombreEquipo: string;
@@ -128,10 +128,31 @@ export const LoginUseCase = async (data: {
 /* ======================================================
    FACHADA ELECTRON (IPC)
 ====================================================== */
+/*
 export const FachadaServicios = {
   obtenerNombreDeEquipo: () =>
     window.Electron.ipcRenderer.invoke("obtenerNombreDeEquipo"),
 
   iniciarLogin: (nombreEquipo: string) =>
     window.Electron.ipcRenderer.invoke("validar-equipo", nombreEquipo),
+};
+*/
+
+export const FachadaServicios = {
+  obtenerNombreDeEquipo: async (): Promise<string> => {
+    return window.electronAPI.obtenerNombreDeEquipo();
+  },
+
+  validarEquipo: async (
+    nombreEquipo: string
+  ): Promise<{
+    permitido: boolean;
+    empresas?: any[];
+    mensaje?: string;
+  }> => {
+    return window.electronAPI.api.post(
+      "/api/auth/validar-equipo",
+      { nombreEquipo }
+    );
+  },
 };
