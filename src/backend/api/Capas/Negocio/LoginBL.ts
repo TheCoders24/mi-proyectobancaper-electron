@@ -16,6 +16,7 @@ export class AuthService {
 
   async seleccionarEmpresa(idEmpresa: string): Promise<Sucursal[]> {
     if (!idEmpresa) {
+      
       throw new Error("Empresa requerida");
     }
 
