@@ -5,6 +5,9 @@ import { Empresa } from "../../../shared/entidades/Empresas";
 import { Sucursal } from "../../../shared/entidades/Sucursales";
 import { LoginIdentity } from "../../../shared/entidades/Login";
 import { FachadaServicios } from "../../services/fachadaservicios";
+import bancaper  from '../../imgs/bancaper.svg'
+
+
 import { 
   Building2, 
   MapPin, 
@@ -16,6 +19,7 @@ import {
   AlertCircle,
   ChevronDown
 } from 'lucide-react';
+
 
 const authService = new AuthService();
 
@@ -212,18 +216,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         {/* Header con logo */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-3 rounded-2xl shadow-lg">
-              <Building2 className="w-10 h-10 text-white" />
-            </div>
+            <img 
+              src={bancaper} 
+              alt="Bancaper"
+              className="w-30 h-30 object-contain"
+            />
           </div>
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-            Bancaper
-          </h2>
-          <p className="text-gray-500 text-sm uppercase tracking-wider mt-2 flex items-center justify-center gap-2">
-            <span className="w-8 h-px bg-gray-300"></span>
-            Mi Banca Personal
-            <span className="w-8 h-px bg-gray-300"></span>
-          </p>
         </div>
 
         {/* Info del equipo (solo visible cuando está verificado) */}
@@ -321,7 +319,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         {/* Botones de acción */}
         <div className="flex gap-3">
           <button
-            className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+            className="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
             onClick={handleLogin}
             disabled={loading || !empresaId || !sucursalId}
           >
@@ -332,7 +330,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </>
             ) : (
               <>
-                <LogIn className="w-5 h-5" />
+                <LogIn className="w-5 h-5 bg-green-500" />
                 <span>Ingresar</span>
               </>
             )}
