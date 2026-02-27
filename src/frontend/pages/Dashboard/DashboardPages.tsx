@@ -53,8 +53,8 @@ const DashboardPages: React.FC = () => {
   const handleLogout = () => {
     console.log("🚪 Cerrando sesión");
     sessionStorage.removeItem('userData');
-    window.location.href = '#/login';
-    
+    //window.location.href = '#/login';
+    window.location.reload();
   };
 
   // Mostrar loading mientras carga
