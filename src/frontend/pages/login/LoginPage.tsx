@@ -121,7 +121,30 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       });
 
       console.log("✅ Login exitoso:", result);
+
+      // 🔥 GUARDAR DATOS EN SESSIONSTORAGE
+      const userData = {
+        nombreEquipo,
+        empresa: empresas.find(e => e.id_ === empresaId)?.nombre || '',
+        idEmpresa: empresaId,
+        sucursal: sucursales.find(s => s.id === parseInt(sucursalId))?.nombre || '',
+        idSucursal: sucursalId,
+        usuario: result.usuario || usuario,
+        perfil: result.nombre_perfil || 'Usuario',
+        fechaAcceso: new Date().toISOString()
+      };
+
+      // Guardar en sessionStorage
+      sessionStorage.setItem('userData', JSON.stringify(userData));
+      
+      // Verificar que se guardó correctamente
+      console.log("💾 Datos guardados en sessionStorage:", sessionStorage.getItem('userData'));
+
+      window.location.href = '#/dashboard';
+      
+      // También puedes llamar a onLoginSuccess si lo necesitas
       onLoginSuccess(result);
+      
     } catch (err: any) {
       console.error("❌ Error login:", err.message);
       alert(err.message);

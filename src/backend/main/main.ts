@@ -137,6 +137,8 @@ function createWindow() {
   // Cargar tu frontend
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
+  
+
   ipcMain.handle("obtenerNombreDeEquipo", ()=>{
     return os.hostname();
   })

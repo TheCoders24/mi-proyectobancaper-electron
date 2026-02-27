@@ -4,7 +4,6 @@ console.log("🔄 Preload script cargado");
 
 // Cache de la URL de la API
 let apiUrlCache: string | null = null;
-
 contextBridge.exposeInMainWorld("electronAPI", {
   /* ===============================
      SISTEMA / ELECTRON
@@ -13,6 +12,7 @@ contextBridge.exposeInMainWorld("electronAPI", {
   obtenerNombreDeEquipo: (): Promise<string> => {
     return ipcRenderer.invoke("obtenerNombreDeEquipo");
   },
+
 
   /* ===============================
      API BACKEND (EXPRESS)
