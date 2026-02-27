@@ -347,7 +347,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         {/* Footer con versión */}
         <div className="mt-6 text-center">
           <p className="text-xs text-gray-400">
-            © 2026 BanCaper - v 0.0.1
+            © 2026 BanCaper - V0.0.1
           </p>
         </div>
       </div>
