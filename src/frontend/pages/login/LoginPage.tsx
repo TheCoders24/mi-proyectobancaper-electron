@@ -194,11 +194,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             </div>
           </div>
           <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-            BanCaper
+            Bancaper
           </h2>
           <p className="text-gray-500 text-sm uppercase tracking-wider mt-2 flex items-center justify-center gap-2">
             <span className="w-8 h-px bg-gray-300"></span>
-            Tu banco digital de confianza
+            Mi Banca Personal
             <span className="w-8 h-px bg-gray-300"></span>
           </p>
         </div>
@@ -291,7 +291,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             </div>
           </div>
           <p className="text-xs text-gray-500 text-right">
-            Use el teclado físico para ingresar
+            Escriba o toque el sensor de huella digital
           </p>
         </div>
 
@@ -327,7 +327,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         {/* Footer con versión */}
         <div className="mt-6 text-center">
           <p className="text-xs text-gray-400">
-            © 2026 BanCaper
+            © 2026 BanCaper - v 0.0.1
           </p>
         </div>
       </div>
