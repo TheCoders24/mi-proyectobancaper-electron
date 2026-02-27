@@ -346,7 +346,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             <span>Salir</span>
           </button>
         </div>
-
         {/* Footer con versión */}
         <div className="mt-6 text-center">
           <p className="text-xs text-gray-400">
