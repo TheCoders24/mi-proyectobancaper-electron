@@ -141,6 +141,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       // Guardar en sessionStorage
       sessionStorage.setItem('userData', JSON.stringify(userData));
       
+      
       // Verificar que se guardó correctamente
       console.log("💾 Datos guardados en sessionStorage:", sessionStorage.getItem('userData'));
 
@@ -148,7 +149,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       
       // También puedes llamar a onLoginSuccess si lo necesitas
       onLoginSuccess(result);
-      
     } catch (err: any) {
       console.error("❌ Error login:", err.message);
       alert(err.message);

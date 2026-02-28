@@ -41,12 +41,12 @@ const DashboardPages: React.FC = () => {
       } catch (error) {
         console.error("❌ Error parsing data:", error);
         // Si hay error, redirigir al login
-        window.location.href = '#/login';
+        window.location.reload();
       }
     } else {
       // Si no hay datos, redirigir al login
       console.log("⚠️ No hay datos de sesión, redirigiendo a login");
-      window.location.href = '#/login';
+      window.location.reload();
     }
   }, []);
 
